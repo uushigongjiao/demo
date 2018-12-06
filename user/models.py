@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 
+from lib.orm import ModelMixin
+
 class User(models.Model):
 
     SEX = (
@@ -32,11 +34,23 @@ class User(models.Model):
             self._profile = _profile
         return self._profile
 
+    def to_dict(self):
+        return {
+            'uid':self.id,
+            'nickname':self.nickname,
+            'phonenum':self.phonenum,
+            'sex':self.sex,
+            'birth_year':self.birth_year,
+            'birth_day' :self.birth_day,
+            'birth_month':self.birth_month,
+            'avatar':self.avatar,
+            'locationg':self.locationg,
+            'age':self.age
+        }
 
 
 
-
-class Profile(models.Model):
+class Profile(models.Model,ModelMixin):
     SEX = (
         ('男', '男'),
         ('女', '女'),
@@ -54,3 +68,6 @@ class Profile(models.Model):
     vibration = models.BooleanField(default=True,verbose_name='是否开始震动')
     only_matche = models.BooleanField(default=True,verbose_name='不让匹配的人看我相册')
     auto_play = models.BooleanField(default=True,verbose_name='是否自动播放视频')
+
+
+

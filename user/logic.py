@@ -23,3 +23,7 @@ def send_verify_code(phonenum):
     return  response
 
 
+def check_vcode(phonenum,vcode):
+    key = 'VerifyCode-%s' % phonenum
+    saved_vcode = cache.get(key)
+    return saved_vcode ==  vcode
